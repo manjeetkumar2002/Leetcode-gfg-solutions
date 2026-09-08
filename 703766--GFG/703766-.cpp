@@ -4,10 +4,11 @@ class Solution {
         // code here
         int num = n;
         int pos=0;
-        // find the unset bit position
-        while(num!=0){
+        while(num){
+            // if bit is unset mark its position
+            
             if(!(num&1)){
-                break;
+                return n | (1<<pos);
             }
             
             pos++;
