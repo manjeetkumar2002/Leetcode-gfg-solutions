@@ -14,29 +14,77 @@ public:
 
 class Solution {
   public:
-    void inorder(Node *root, vector<int> &ans){
-        if (!root)
-            return;
-
-        inorder(root->left, ans);
-        ans.push_back(root->data);
-        inorder(root->right, ans);
-    }
     vector<int> merge(Node *r1, Node *r2) {
-        // find the inorder of both tree 
-        // store both in third array and sort it
-        vector<int> ans1,ans2,res;
+        vector<int> ans;
+           stack<Node*> s1,s2;
 
-        inorder(r1,ans1);
-        inorder(r2,ans2);
+           while(r1){
+               s1.push(r1);
+               r1=r1->left;
+           }
 
-        for(int i:ans1)
-        res.push_back(i);
-        
-        for(int i:ans2)
-        res.push_back(i);
-        sort(res.begin(),res.end());
-        return res;
+           while(r2){
+               s2.push(r2);
+               r2=r2->left;
+           }
+
+           while(!s1.empty() and !s2.empty()){
+               // check top element is common 
+               if(s1.top()->data==s2.top()->data){
+                   ans.push_back(s1.top()->data);
+                   ans.push_back(s1.top()->data);
+                   // move to right side
+                   r1 = s1.top()->right;
+                   r2 = s2.top()->right;
+
+                   s1.pop();
+                   s2.pop();
+               }
+               else if(s1.top()->data<s2.top()->data){
+                   ans.push_back(s1.top()->data);
+                   // move right side of r1
+                   r1 = s1.top()->right;
+                   s1.pop();
+               }
+               else{
+                   ans.push_back(s2.top()->data);
+                   // move right side of r2
+                   r2 = s2.top()->right;
+                   s2.pop();
+               }
+               // push all the left side element of r1 and r2
+
+               while(r1){
+                   s1.push(r1);
+                   r1=r1->left;
+               }
+
+               while(r2){
+                   s2.push(r2);
+                   r2=r2->left;
+               }
+           }
+           // push the remaining element in ans
+           while(!s1.empty()){
+               ans.push_back(s1.top()->data);
+               r1 = s1.top()->right;
+               s1.pop();
+               while(r1){
+                   s1.push(r1);
+                   r1=r1->left;
+               }
+           }
+
+           while(!s2.empty()){
+               ans.push_back(s2.top()->data);
+               r2 = s2.top()->right;
+               s2.pop();
+               while(r2){
+                   s2.push(r2);
+                   r2=r2->left;
+               }
+           }
+           return ans;
     }
 };
 
