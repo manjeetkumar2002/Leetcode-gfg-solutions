@@ -33,7 +33,19 @@ class Solution {
         // code here
         vector<int> tree;
         inorder(root,tree);
-        sort(tree.begin(),tree.end());
+        int first = -1;
+                int second = -1;
+                for(int i=1;i<tree.size();i++){
+                    if(tree[i]<tree[i-1] and first==-1){
+                        first = i-1;
+                        second = i;
+                    }
+                    else if(tree[i]<tree[i-1]){
+                        second = i;
+                    }
+                }
+                swap(tree[first],tree[second]);
+
         // fix the tree
         int index =0;
         fixtree(root,tree,index);
