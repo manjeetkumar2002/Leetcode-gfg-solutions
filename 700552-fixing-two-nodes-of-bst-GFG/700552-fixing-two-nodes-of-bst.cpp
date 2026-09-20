@@ -64,9 +64,7 @@ class Solution {
            
       }
 
-      int num = first->data;
-      first->data = second->data;
-      second->data = num;
+      swap(first->data,second->data);
         return original;
   }
 };
