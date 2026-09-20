@@ -13,44 +13,62 @@ class Node {
 
 class Solution {
   public:
-  void inorder(Node *root, vector<int> &ans){
-      if (!root)
-          return;
 
-      inorder(root->left, ans);
-      ans.push_back(root->data);
-      inorder(root->right, ans);
+  Node* correctBST(Node* root) {
+      Node * curr = NULL;
+      Node * first = NULL;
+      Node * second = NULL;
+      Node * last = NULL;
+      Node * present = NULL;
+        Node * original = root;
+      while(root){
+          // left side not exist
+          if(!root->left){
+              last = present;
+              present = root;
+              if(last && last->data>present->data){
+                  if(!first){
+                      first = last;
+                  }
+                  second = present;
+              }
+              root = root->right;
+          }
+          // left side exist
+          else{
+              //check last side already traversed or not
+              curr = root->left;
+              while(curr->right and curr->right!=root){
+                  curr=curr->right;
+              }
+              // link not present
+              if(!curr->right){
+                  curr->right = root;
+                  root=root->left;
+              }
+              // link present
+              else{
+                  curr->right = NULL;
+                  last = present;
+                  present = root;
+                  if(last && last->data>present->data){
+                      if(!first){
+                          first = last;
+                      }
+                      second = present;
+                  }
+                  root = root->right;
+              }
+             
+          }
+           
+      }
+
+      int num = first->data;
+      first->data = second->data;
+      second->data = num;
+        return original;
   }
-  void fixtree(Node*root,vector<int>& arr,int & index){
-       if (!root)
-          return;
-
-      fixtree(root->left, arr,index);
-      root->data = arr[index++];
-      fixtree(root->right, arr,index);
-  }
-    Node* correctBST(Node* root) {
-        // code here
-        vector<int> tree;
-        inorder(root,tree);
-        int first = -1;
-                int second = -1;
-                for(int i=1;i<tree.size();i++){
-                    if(tree[i]<tree[i-1] and first==-1){
-                        first = i-1;
-                        second = i;
-                    }
-                    else if(tree[i]<tree[i-1]){
-                        second = i;
-                    }
-                }
-                swap(tree[first],tree[second]);
-
-        // fix the tree
-        int index =0;
-        fixtree(root,tree,index);
-        return root;
-    }
 };
 
 // Synced seamlessly with LeetHub Pro
