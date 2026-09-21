@@ -5,8 +5,8 @@ public:
         int end = arr.size()-1;
         int index;
         while(start<=end){
-            int mid = start+(end-start)/2;
-
+            // int mid = start+(end-start)/2;
+            int mid = end + (start-end)/2;
             if(arr[mid]>arr[mid-1] and arr[mid]>arr[mid+1]){
                 index = mid;
                 break;
@@ -15,7 +15,7 @@ public:
                 start = mid+1;
             }
             else{
-                end = mid;
+                end = mid-1;
             }
         }
         return index;
