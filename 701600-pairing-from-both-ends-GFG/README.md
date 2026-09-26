@@ -1,0 +1,3 @@
+# [Pairing From Both Ends](https://www.geeksforgeeks.org/problems/pairing-elements/1)
+## Easy
+Given an array arr[], form pairs by pairing the first element with the last element, the second element with the second last element, and so on. If the array has an odd number of elements, pair the middle element with itself. Return all the formed pairs in the order they are created.Examples:Input: arr[] = [1, 2, 3, 4, 5]Output: [[1, 5], [2, 4], [3, 3]]Explanation:&nbsp;1 is paired with 5, 2 with 4, and the middle element 3 with itself.Input: arr[] = [4, 2, 3, 1]Output: [[4, 1], [2, 3]]Explanation: 4 is paired with 1 and 2 is paired with 3.
