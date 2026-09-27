@@ -1,0 +1,10 @@
+# [Count BST Nodes in Range](https://www.geeksforgeeks.org/problems/count-bst-nodes-that-lie-in-a-given-range/1)
+## Medium
+Given a Binary Search Tree (BST) and a range l-h (inclusive), your task is to return the number of nodes in the BST whose value lie in the given range. Examples :Input: root[] = [10, 5, 50, 1, N, 40, 100], l = 5, h = 45
+
+Output: 3
+Explanation: There are three nodes in range [5, 45] =  5, 10 and 40.
+Input: root[] = [10, 5, 50, 1, N, 40, 100], l = 10, h = 100
+Output: 4
+Explanation: There are four nodes in range [10, 100] = 10, 40, 50 and 100.Input: root[] = [1, 2, 3], l = 23, h = 95
+Output: 0Explanation: There are no nodes in range [23, 95].
