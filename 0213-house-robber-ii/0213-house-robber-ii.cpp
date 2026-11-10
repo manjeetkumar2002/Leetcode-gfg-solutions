@@ -1,25 +1,25 @@
 class Solution {
 public:
-   int find(vector<int>& nums,int n,int index,vector<int>& dp){
-    if(index>=n) return 0;
-    if(dp[index]!=-1) return dp[index];
-    // can rob
-    int res1 = nums[index] + find(nums,n,index+2,dp);
-    // can't rob
-    int res2 = find(nums,n,index+1,dp);
-
-    dp[index] =  max(res1,res2);
-    return dp[index];
-}
-int rob(vector<int>& nums){
+   int rob(vector<int>& nums){
     int n = nums.size();
     // edge case
     if(n==1) return nums[0];
     vector<int> dp1(n+2,-1);
-    vector<int> dp2(n+2,-1);
     // phase1 : find answer from 0 to n-1 index
+    dp1[n-1] = 0;
+    dp1[n] = 0;
+    for(int i=n-2;i>=0;i--){
+        dp1[i] = max(nums[i]+dp1[i+2],dp1[i+1]);
+    }
     // phase2 : find answer from 1 to n index
-    return max(find(nums,n-1,0,dp1),find(nums,n,1,dp2));
+    vector<int> dp2(n+2,-1);
+     dp2[n+1] = 0;
+    dp2[n] = 0;
+    for(int i=n-1;i>0;i--){
+        dp2[i] = max(nums[i]+dp2[i+2],dp2[i+1]);
+    }
+
+    return max(dp1[0],dp2[1]);
 }
 };
 
