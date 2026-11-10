@@ -1,27 +1,26 @@
+
 class Solution {
 public:
- int find(int i,int amt,vector<int>&coins,int n,vector<vector<int>>&dp){
-    // base cases
-    if(amt==0) return 1;
-    if(i<0) return 0;
-    if(dp[i][amt]!=-1){
-        return dp[i][amt];
-    }
+    int change(int amount, vector<int>& coins) 
+    {
+        vector<int> dp(amount + 1, 0);
 
-    if(coins[i]>amt){
-        return dp[i][amt] =  find(i-1,amt,coins,n,dp);
+        dp[0] = 1;
+
+        for (int coin : coins)
+        {
+            for (int j = coin; j <= amount; j++)
+            {
+                long long ways = (long long)dp[j] + dp[j - coin];
+
+                dp[j] = min(ways, (long long)INT_MAX);
+            }
+        }
+
+        return dp[amount];
     }
-    else{
-        // use the coin & dont use the coins
-        return dp[i][amt] =  find(i,amt-coins[i],coins,n,dp) + find(i-1,amt,coins,n,dp);
-    }
-}
-int change(int amt , vector<int>& coins){
-    int n = coins.size();
-    vector<vector<int>> dp(n+1,vector<int>(amt+1,-1));
-    return find(n-1,amt, coins,n,dp);
-}
 };
+
 
 // Synced seamlessly with LeetHub Pro
 // Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
