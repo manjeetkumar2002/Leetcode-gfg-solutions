@@ -1,15 +1,33 @@
 class Solution {
   public:
-    int countNumberswith4(int n) {
-        // code here
-        int count = 0;
-        for(int num=1;num<=n;num++){
-            string strNum = to_string(num);
-            if(strNum.find('4')!=string::npos)
-            count++;
-        }
-        return count;
-    }
+    bool containsFour(int n) { 
+
+        while (n > 0) {  
+
+            // If digit is 4, return true  
+            if (n % 10 == 4) {  
+                return true;  
+            }
+
+            // Move to next digit  
+            n /= 10;  
+        }  
+        return false;  
+    }  
+
+    int countNumberswith4(int n) { 
+
+        int count = 0;  
+
+        for (int i = 1; i <= n; i++) {  
+
+            // Increment count if i contains digit 4  
+            if (containsFour(i)) {  
+                count++;  
+            }  
+        }  
+        return count;  
+    }  
 };
 
 
